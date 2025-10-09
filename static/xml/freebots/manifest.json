@@ -1,0 +1,5 @@
+[
+  { "filename":"Digits_Sniper.xml", "name":"Digits Sniper", "description":"Digits-focused bot for matches/differ." },
+  { "filename":"Admin_Runner.xml", "name":"Admin Runner", "description":"Hit-and-run even/odd bot (no martingale)." },
+  { "filename":"Alpha_Pro.xml", "name":"Alpha Pro", "description":"Professional balanced bot." }
+]

@@ -1,52 +1,136 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    {{> ../templates/partials/security }} {{> ../templates/partials/head }}
-    <title>Binary Bot</title>
-    {{> bundle_css }}
-    <link rel="stylesheet" href="css/binary.css">
-    {{> bot_css }}
-  </head>
+<head>
+  {{> ../templates/partials/security }} 
+  {{> ../templates/partials/head }}
+  <title>Binary Bot</title>
+  {{> bundle_css }}
+  <link rel="stylesheet" href="css/binary.css">
+  {{> bot_css }}
+</head>
 
-  <body>
-    <div id="header">
-      <div class="left-header">
-        <div class="logo-wrapper">
-          <a href="https://www.binary.com" target="blank" id="logo">
-            <div class="logo-parent">
-              <div class="logo">
-                <img class="responsive" src="{{> binary_style_img }}/logo/symbol.svg" alt="Binary logo" />
-              </div>
-              <div class="binary-logo-text">
-                <img class="responsive" src="{{> binary_style_img }}/logo/type.svg" alt="Binary logo">
-              </div>
+<body>
+  <div id="header">
+    <div class="left-header">
+      <div class="logo-wrapper">
+        <a href="https://bkdollaranimation.netlify.app" target="_blank" id="logo">
+          <div class="logo-parent">
+            <div class="logo">
+              <img class="responsive" src="{{> binary_style_img }}/logo/symbol.svg" alt="BKDollar logo" />
             </div>
-          </a>
-        </div>
+            <div class="binary-logo-text">
+              <img class="responsive" src="{{> binary_style_img }}/logo/type.svg" alt="BKDollar Animation">
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-holder">
+    <div class="container">
+      <h1>Change API Endpoint</h1>
+      <div style="border: 1px solid #bababa; padding: 1em; border-radius: 0.5em;">
+        <form>
+          <table id="details" style="width: 100%;">
+            <tr>
+              <td style="text-align: right"><b>Server</b></td>
+              <td>
+                <input type="text" id="server_url" value="ws.binaryws.com" maxlength="40" />
+                <p class="hint no-margin">Default: ws.binaryws.com (Deriv WebSocket Server)</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: right"><b>OAuth App ID</b></td>
+              <td>
+                <input type="text" id="app_id" value="96054" maxlength="8" />
+                <p class="hint no-margin">
+                  Register and get an App ID to connect to Deriv. Your current App ID is <strong>96054</strong>.
+                </p>
+                <p style="color: red; font-size: 0.8em; display:none;" id="error">Unable to connect — redirecting to secure affiliate login...</p>
+                <p id="connected" style="display:none; color:green;"><b>✅ Connected successfully to Deriv API</b></p>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: right">
+                <button class="button" id="new_endpoint" type="submit">Submit</button>
+              </td>
+              <td>
+                <button class="button" id="reset">Reset To Original Settings</button>
+              </td>
+            </tr>
+          </table>
+        </form>
       </div>
     </div>
 
-
-    <div id="content-holder">
-        <div class="container">
-            <h1>Change API Endpoint</h1>
-            <div style="border: 1px solid #bababa; padding: 1em;border-radius: 0.5em;">
-                <form>
-                    <table id="details" style="width: 100%;">
-                        <tr><td style="text-align: right"><b>Server</b></td><td><input type="text" id="server_url" value="frontend.binaryws.com" maxlength=30 /><p class="hint no-margin">e.g. frontend.binaryws.com</p></td></tr>
-                        <tr><td style="text-align: right"><b>O Auth App ID</b></td><td><input type="text" id="app_id" value="1" maxlength=5 /><p class="hint no-margin">You have to register and get App ID before you can use different OAuth server for authentication. For more information refer to OAuth details on https://developers.binary.com/.</p><p style="color: red; font-size: 0.8em;" id="error">Unable to connect to Connect, fallback to default endpoint.</p><p id="connected"><b>Connected to the endpoint successfully!</b></p></td></tr>
-                        <tr><td style="text-align: right"><button class="button" id="new_endpoint" type="submit">Submit</button></td><td><button class="button" id="reset">Reset To Original Settings</button></td></tr>
-                    </table>
-                </form>
-            </div>
-        </div>
+    <!-- Affiliate Login Redirect -->
+    <div style="text-align:center; margin-top:20px;">
+      <a href="https://partners.deriv.com/rx?sidc=7F66B08A-09FD-438A-9D6B-52B41F51EAA1&utm_campaign=dynamicworks&utm_medium=affiliate&utm_source=CU60658"
+         target="_blank"
+         class="button"
+         style="padding:8px 16px; background:#0f9d58; color:#fff; border-radius:4px; text-decoration:none;">
+         Sign Up / Login via BKDollar
+      </a>
     </div>
-    {{> index}}
+  </div>
+
+  {{> index}}
+
   <style>
-    #details td {
-     border: none; 
-    }
+    #details td { border: none; }
   </style>
-  </body>
+
+  <!-- ✅ Auto-connect & Redirect Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const serverInput = document.getElementById("server_url");
+      const appInput = document.getElementById("app_id");
+      const connectedMsg = document.getElementById("connected");
+      const errorMsg = document.getElementById("error");
+      const AFFILIATE_LINK = "https://partners.deriv.com/rx?sidc=7F66B08A-09FD-438A-9D6B-52B41F51EAA1&utm_campaign=dynamicworks&utm_medium=affiliate&utm_source=CU60658";
+
+      function testConnection() {
+        try {
+          const ws = new WebSocket(wss://${serverInput.value}/websockets/v3?app_id=${appInput.value});
+          ws.onopen = () => {
+            connectedMsg.style.display = "block";
+            errorMsg.style.display = "none";
+            ws.close();
+          };
+          ws.onerror = () => {
+            connectedMsg.style.display = "none";
+            errorMsg.style.display = "block";
+            // ✅ Redirect automatically to your affiliate signup page after 2 seconds
+            setTimeout(() => {
+              window.open(AFFILIATE_LINK, "_blank");
+            }, 2000);
+          };
+        } catch (e) {
+          connectedMsg.style.display = "none";
+          errorMsg.style.display = "block";
+          setTimeout(() => {
+            window.open(AFFILIATE_LINK, "_blank");
+          }, 2000);
+        }
+      }
+
+      testConnection();
+
+      document.getElementById("reset").addEventListener("click", (e) => {
+        e.preventDefault();
+        serverInput.value = "ws.binaryws.com";
+        appInput.value = "96054";
+        connectedMsg.style.display = "none";
+        errorMsg.style.display = "none";
+      });
+
+      document.getElementById("new_endpoint").addEventListener("click", (e) => {
+        e.preventDefault();
+        testConnection();
+      });
+    });
+  </script>
+</body>
 </html>

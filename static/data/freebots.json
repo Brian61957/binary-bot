@@ -1,0 +1,17 @@
+[
+  {
+    "file": "xml/freebots/Admin_Runner.xml",
+    "name": "Admin_Runner",
+    "desc": "Auto-discovered trading bot XML"
+  },
+  {
+    "file": "xml/freebots/Alpha_Pro.xml",
+    "name": "Alpha_Pro",
+    "desc": "Auto-discovered trading bot XML"
+  },
+  {
+    "file": "xml/freebots/Digits_Sniper.xml",
+    "name": "Digits_Sniper",
+    "desc": "Auto-discovered trading bot XML"
+  }
+]
