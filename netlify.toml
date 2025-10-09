@@ -1,0 +1,51 @@
+# ==========================
+# BKDollarAnimation Binary Bot – Netlify Config
+# ==========================
+
+[build]
+  command = "yarn build"
+  publish = "www"
+
+# ✅ Environment setup
+[build.environment]
+  NODE_VERSION = "18.19.1"
+  YARN_VERSION = "1.22.22"
+  CI = "false"
+
+# ==========================
+# Redirects & Routing
+# ==========================
+# Redirect all SPA routes to index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# ==========================
+# Security Headers
+# ==========================
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    Content-Security-Policy = "default-src 'self' https://.deriv.com https://.binary.com https://.netlify.app https://api.deriv.com https://.binaryws.com 'unsafe-inline' 'unsafe-eval' data: blob:;"
+
+# ==========================
+# Optional: Custom 404
+# ==========================
+[[redirects]]
+  from = "/404"
+  to = "/index.html"
+  status = 200
+
+# ==========================
+# Deploy Badge & Site Info
+# ==========================
+# This adds Netlify deploy info you can show in README or footer.
+# To display the badge, copy the markdown line below into your README:
+# [![Netlify Status](https://api.netlify.com/api/v1/badges/YOUR-SITE-ID/deploy-status)](https://app.netlify.com/sites/bkdollaranimation/deploys)
+
+# (Replace YOUR-SITE-ID with your actual Netlify site ID)
