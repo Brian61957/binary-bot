@@ -5,19 +5,11 @@
     "bot": "lib/index.js"
   },
   "jest": {
-    "setupFilesAfterEnv": [
-      "<rootDir>/.jest"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "tools.js"
-    ]
+    "setupFilesAfterEnv": ["<rootDir>/.jest"],
+    "testPathIgnorePatterns": ["/node_modules/", "tools.js"]
   },
   "lint-staged": {
-    "*.js": [
-      "prettier-eslint --write",
-      "git add"
-    ]
+    "*.js": ["prettier-eslint --write", "git add"]
   },
   "scripts": {
     "start": "gulp watch",
@@ -27,7 +19,8 @@
     "prebuild": "node scripts/generate-freebots-manifest.js",
     "build": "gulp build-min",
     "build-min": "gulp build-min",
-    "serve": "npx http-server www -p 8080"
+    "serve": "npx http-server www -p 8080",
+    "deploy": "yarn build && gh-pages -d www"
   },
   "husky": {
     "hooks": {
