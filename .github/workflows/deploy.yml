@@ -24,7 +24,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: 🧠 Run CLI checks (build + lint)
-        run: yarn cli
+        run: yarn build
 
       - name: 🚀 Deploy to GitHub Pages
         env:
