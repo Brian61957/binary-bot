@@ -23,8 +23,8 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: 🧠 Run CI checks (build + lint)
-        run: yarn build
+      - name: 🧠 Run CLI checks (build + lint)
+        run: yarn cli
 
       - name: 🚀 Deploy to GitHub Pages
         env:
