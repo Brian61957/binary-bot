@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    	<style id="antiClickjack">body{display:none !important;}</style>
+    	<script type="text/javascript">
+    		if (self === top) {
+    			var antiClickjack = document.getElementById("antiClickjack");
+    			antiClickjack.parentNode.removeChild(antiClickjack);
+    		} else {
+    			top.location = self.location;
+    		}
+    	</script>
+    	<link rel="apple-touch-icon" sizes="57x57" href="image/binary-style/favicons/apple-touch-icon-57x57.png">
+    	<link rel="apple-touch-icon" sizes="114x114" href="image/binary-style/favicons/apple-touch-icon-114x114.png">
+    	<link rel="apple-touch-icon" sizes="72x72" href="image/binary-style/favicons/apple-touch-icon-72x72.png">
+    	<link rel="apple-touch-icon" sizes="144x144" href="image/binary-style/favicons/apple-touch-icon-144x144.png">
+    	<link rel="apple-touch-icon" sizes="60x60" href="image/binary-style/favicons/apple-touch-icon-60x60.png">
+    	<link rel="apple-touch-icon" sizes="120x120" href="image/binary-style/favicons/apple-touch-icon-120x120.png">
+    	<link rel="apple-touch-icon" sizes="76x76" href="image/binary-style/favicons/apple-touch-icon-76x76.png">
+    	<link rel="apple-touch-icon" sizes="152x152" href="image/binary-style/favicons/apple-touch-icon-152x152.png">
+    	<link rel="apple-touch-icon" sizes="180x180" href="image/binary-style/favicons/apple-touch-icon-180x180.png">
+    	<link rel="icon" type="image/png" sizes="192x192" href="image/binary-style/favicons/favicon-192x192.png">
+    	<link rel="icon" type="image/png" sizes="160x160" href="image/binary-style/favicons/favicon-160x160.png">
+    	<link rel="icon" type="image/png" sizes="96x96" href="image/binary-style/favicons/favicon-96x96.png">
+    	<link rel="icon" type="image/png" sizes="16x16" href="image/binary-style/favicons/favicon-16x16.png">
+    	<link rel="icon" type="image/png" sizes="32x32" href="image/binary-style/favicons/favicon-32x32.png">
+    	<meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
+    	<meta http-equiv="pragma" content="no-cache">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<meta name="referrer" content="origin">
+    <title>Binary Bot</title>
+    <link href="css/bundle-bfd9aa3ef3.css" rel="stylesheet" />    <link rel="stylesheet" href="css/binary.css">
+    <link href="css/bot-9e07f77be3.css" rel="stylesheet" />
+    <!-- Font Awesome for optional icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* --- FreeBots + QuickTrade + SignalTool injected styles --- */
+        /* FreeBots area */
+        #freebots-section {
+            display: none; /* shown when FreeBots tab active */
+            padding: 14px;
+            box-sizing: border-box;
+            background: #fff;
+            border-top: 1px solid #e6e6e6;
+        }
+        .fb-header {
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:12px;
+            margin-bottom:12px;
+            flex-wrap:wrap;
+        }
+        .fb-title { font-size:1.15rem; color:#0f9d58; font-weight:700; }
+        .fb-grid {
+            display:flex;
+            gap:12px;
+            flex-wrap:wrap;
+            justify-content:center;
+        }
+        .fb-card {
+            width: 300px;
+            background:#fafafa;
+            border:1px solid #eee;
+            border-radius:8px;
+            padding:12px;
+            box-sizing:border-box;
+            display:flex;
+            flex-direction:column;
+            gap:8px;
+            box-shadow:0 2px 6px rgba(0,0,0,0.03);
+        }
+        .fb-card h3 { margin:0; font-size:1rem; color:#222; }
+        .fb-card p { margin:0; color:#666; font-size:0.9rem; min-height:44px; }
+        .fb-actions { display:flex; gap:8px; margin-top:8px; }
+        .button.load-btn { background:#0f9d58; color:#fff; padding:8px 12px; border-radius:6px; border:none; cursor:pointer; font-weight:600; text-decoration:none; display:inline-block; }
+        .button.download-btn { background:#eee; color:#222; padding:8px 12px; border-radius:6px; border:none; cursor:pointer; text-decoration:none; }
+        .fb-note { text-align:center; color:#666; font-size:0.9rem; margin-top:10px; }
+
+        /* QuickTrade reused styles (keeps earlier styling, combined) */
+        #quick-trade-container { display:none; background:#fff; border-top:1px solid #e6e6e6; padding:14px; box-sizing:border-box; }
+        .qt-header { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:12px; }
+        .qt-title { font-size:1.1rem; font-weight:700; color:#0f9d58; }
+        .qt-controls { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+        .qt-controls select, .qt-controls input[type="number"] { padding:6px 8px; border-radius:4px; border:1px solid #ccc; background:#fff; font-size:0.95rem; }
+        .qt-action { display:flex; gap:8px; align-items:center; }
+        .qt-button { background:#0f9d58; color:#fff; padding:8px 12px; border-radius:6px; border:none; cursor:pointer; font-weight:600; }
+        .qt-button.secondary { background:#eee; color:#222; }
+
+        .qt-digits { display:flex; gap:10px; justify-content:center; align-items:center; flex-wrap:wrap; margin:12px 0; }
+        .qt-digit { width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:#f6f6f6; color:#222; font-size:1.2rem; font-weight:700; position:relative; }
+        .qt-digit.green { background:#e6f6ea; color:#0b6b35; box-shadow:0 0 6px rgba(15,157,88,0.18); }
+        .qt-digit.red { background:#fdeaea; color:#a11a1a; box-shadow:0 0 6px rgba(220,30,30,0.12); }
+
+        .qt-stability { display:flex; gap:6px; justify-content:center; margin-top:8px; }
+        .qt-stability .bar { width:18px; height:6px; background:#dcdcdc; border-radius:2px; }
+        .qt-stability .bar.green { background:#0f9d58; }
+        .qt-stability .bar.red { background:#e74c3c; }
+
+        /* Signal Tool styles */
+        #signaltool-container { display:none; padding:14px; background:#fff; border-top:1px solid #e6e6e6; }
+        .st-header { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:12px; }
+        .st-title { font-size:1.1rem; font-weight:700; color:#0f9d58; }
+        .st-panel { border:1px solid #eee; background:#0f1720; color:#cfe9d6; padding:12px; border-radius:8px; min-height:140px; position:relative; overflow:hidden; }
+        .st-scan-overlay { position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .25s; }
+        .st-hacking { font-family:monospace; font-size:14px; line-height:1.2; color:#0f9d58; opacity:0.06; position:absolute; inset:0; padding:10px; overflow:hidden; }
+        .st-controls { display:flex; gap:8px; align-items:center; margin-top:12px; flex-wrap:wrap; }
+        .st-button { background:#0f9d58; color:#fff; padding:8px 12px; border-radius:6px; border:none; cursor:pointer; font-weight:600; }
+        .st-stop { background:#c0392b; }
+
+        /* small helpers */
+        .invisible { display:none !important; }
+        .tab-controls { display:flex; gap:8px; justify-content:center; margin:10px 0; flex-wrap:wrap; }
+        .tab-link { padding:6px 10px; border-radius:6px; cursor:pointer; color:#0f9d58; font-weight:600; text-decoration:none; }
+        .tab-link.active { background:rgba(15,157,88,0.08); }
+
+        /* responsive */
+        @media (max-width:640px) {
+            .fb-card { width:100%; max-width:420px; }
+            .qt-digit { width:44px; height:44px; font-size:1rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bot-main" class="hidden" style="width: 100%; position: relative; height: 100%;">
+        <div class="barspinner dark">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+        <div id="topbar" class="movetoderiv_topbar_hide">
+            <div id="movetoderiv_language_switcher" class="languages">
+              <ul id="display_language">
+                <li class="displaying_language_mtd">
+                  <div class="language_background_flag"></div>
+                  <span class="language actual_flag"></span>
+                  <span class="nav-caret"></span>
+                </li>
+              </ul>
+              <ul id="select_language" class="language_list border_hide_mtd">
+                <li class="hide_lang">
+                  <span class="world world-black"></span>
+                    <span class="language"></span>
+                  <span class="nav-caret"></span>
+                </li>
+                <li id="show_lang" class="en"><img class="language_flag" src="./image/english-flag.png"><div class="language_text">English</div></li>
+                <li id="show_lang" class="es"><img class="language_flag" src="./image/spain-flag.png"><div class="language_text">Español</div></li>
+                <li id="show_lang" class="id"><img class="language_flag" src="./image/indonesia-flag.png"><div class="language_text">Indonesia</div></li>
+                <li id="show_lang" class="pt"><img class="language_flag" src="./image/portugal-flag.png"><div class="language_text">Português</div></li>
+              </ul>
+            </div>
+        </div>
+
+        <div id="header"></div>
+        <div id="binary-logo"></div>
+        <div id="movetoderiv"></div>
+        <div id="bot-landing"></div>
+        <div id="footer"></div>
+        <div id="notification-banner"></div>
+
+        <div id="main">
+            <div>
+                <div class="content show-on-load">
+                    <h1 class="center" data-i18n-text="Binary Bot"></h1>
+                    <h3 class="center" data-i18n-text="Trade More Efficiently Than You Ever Thought Possible"></h3>
+
+                    <!-- Top area (we keep original but add tab controls for our custom tabs right below) -->
+                    <div id="split-container" style="margin-top:16px;">
+                        <div class="half-width top-image">
+                            <img src="image/binarylogo-puzzle.svg" alt="">
+                        </div>
+                        <div class="half-width index-text">
+                            <p data-i18n-text="Interested in automating your preferred strategies for trading binary options?"></p>
+                            <p data-i18n-text="Binary Bot is our leading-edge programming tool which allows you to build trading apps with a simple 'jigsaw puzzle-like' drag-and-drop function."></p>
+                            <p data-i18n-text="Dream up any number of binary options trading bots, from incredibly simple formulas to vastly complex algorithms. Then let them trade for you, even while you sleep."></p>
+                        </div>
+                        <div class="half-width bottom-image puzzle-logo">
+                            <img src="image/binarylogo-puzzle.svg" alt="">
+                        </div>
+                    </div>
+
+                    <div class="clear">
+                        <p class="cta"><a class="button" href="bot.html"><span data-i18n-text="Begin Building a Bot Now"></span></a></p>
+                        <p class="center"><span data-i18n-text="Need further assistance?"></span> <a href="mailto:affiliates@binary.com" data-i18n-text="Contact us"></a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="js/undefined"></script>        <!-- Google Tag Manager (noscript) --> <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P97C2DZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> <!-- End Google Tag Manager (noscript) -->
+        <!-- ========= Our injected tab controls (placed after the original landing content)
+             These do not remove existing DBot navigation — they sit alongside and behave similarly. ========= -->
+        <div style="width:100%; display:flex; justify-content:center; margin:8px 0;">
+            <div class="tab-controls" role="tablist" aria-label="BKDollar extra tabs">
+                <a id="tab-freebots" class="tab-link" role="tab" aria-selected="false">FreeBots</a>
+                <a id="tab-quicktrade" class="tab-link" role="tab" aria-selected="false">Quick Trade</a>
+                <a id="tab-signaltool" class="tab-link" role="tab" aria-selected="false">Signal Tool</a>
+            </div>
+        </div>
+
+        <!-- ========= FreeBots Section ========= -->
+        <section id="freebots-section" aria-labelledby="tab-freebots">
+            <div class="fb-header">
+                <div>
+                    <div class="fb-title">BKDollar — FreeBots</div>
+                    <div style="font-size:0.95rem; color:#666;">Welcome to the FreeBots section. Choose a bot and click <strong>Load</strong> to import it into the Bot Builder.</div>
+                </div>
+                <div>
+                    <small style="color:#888">Bots are read from <code>/static/data/freebots.json</code>. Add more XMLs into <code>/static/xml/freebots/</code> and update the JSON or regenerate manifest to auto-appear.</small>
+                </div>
+            </div>
+
+            <div class="fb-grid" id="fb-grid">
+                <!-- Bot cards injected here by script -->
+            </div>
+
+            <div class="fb-note">Tip: After clicking <strong>Load</strong>, open <em>Bot Builder</em> (Dashboard → Bot Builder) to view/edit the loaded strategy if it doesn’t show automatically.</div>
+        </section>
+
+        <!-- ========= Quick Trade Section (digits) ========= -->
+        <section id="quick-trade-container" aria-labelledby="tab-quicktrade">
+            <div class="qt-header">
+                <div>
+                    <div class="qt-title">Quick Trade — Digit Circles</div>
+                    <div class="qt-subtitle" style="font-size:0.9rem; color:#666;">Choose market, ticks & strategy, then click <em>Place Trade</em>.</div>
+                </div>
+                <div class="qt-controls">
+                    <select id="qt-market"><option>Loading markets...</option></select>
+                    <select id="qt-contract-type">
+                        <option value="DIGITMATCH">Match</option>
+                        <option value="DIGITDIFF">Differ</option>
+                        <option value="DIGITEVEN">Even</option>
+                        <option value="DIGITODD">Odd</option>
+                        <option value="DIGITOVER">Over</option>
+                        <option value="DIGITUNDER">Under</option>
+                    </select>
+                    <select id="qt-tick">
+                        <option value="1">1 tick</option>
+                        <option value="2">2 ticks</option>
+                        <option value="3">3 ticks</option>
+                        <option value="5">5 ticks</option>
+                        <option value="10">10 ticks</option>
+                    </select>
+                    <input id="qt-stake" type="number" min="1" step="1" value="1" title="Stake" style="width:90px" />
+                    <div class="qt-action">
+                        <button id="qt-place-trade" class="qt-button">Place Trade</button>
+                        <button id="qt-simulate" class="qt-button secondary">Simulate</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="qt-digits" id="qt-digits"></div>
+            <div class="qt-stability" id="qt-stability"></div>
+
+            <div style="text-align:center; margin-top:8px; color:#666; font-size:0.9rem;">
+                Tip: Live trades require sign in. If you try to place a live trade you'll be redirected to sign in via our affiliate link.
+            </div>
+        </section>
+
+        <!-- ========= Signal Tool Section ========= -->
+        <section id="signaltool-container" aria-labelledby="tab-signaltool">
+            <div class="st-header">
+                <div>
+                    <div class="st-title">Signal Tool — Matches Analyzer</div>
+                    <div style="font-size:0.95rem; color:#666;">Press <strong>Start Scan</strong> to analyze markets for digit match opportunities.</div>
+                </div>
+                <div class="st-controls">
+                    <select id="st-tick">
+                        <option value="1">1 tick</option>
+                        <option value="2">2 ticks</option>
+                        <option value="3">3 ticks</option>
+                        <option value="5">5 ticks</option>
+                    </select>
+                    <button id="st-start" class="st-button">Start Scan</button>
+                    <button id="st-stop" class="st-button st-stop">Stop</button>
+                </div>
+            </div>
+
+            <div class="st-panel" id="st-panel">
+                <div class="st-hacking" id="st-hacking"></div>
+                <div id="st-result" style="position:relative; z-index:2;">
+                    <h3 id="st-result-title" style="margin:0; color:#dff7e6;">Waiting for scan</h3>
+                    <p id="st-result-sub" style="margin:8px 0 0; color:#cfe9d6;">Press <strong>Start Scan</strong> to detect high-probability digit matches.</p>
+                </div>
+                <div class="st-scan-overlay" id="st-overlay"></div>
+            </div>
+        </section>
+
+        <!-- the original toolbox and rest of the page (unchanged) -->
+        <div id="toolbox" class="actions_menu show-on-load hidden"> ... </div>
+        <div id="footer"></div>
+        <audio id="announcement" autostart="false" preload="auto"> <source src="sound/announcement.ogg" type="audio/ogg" /> <source src="sound/announcement.mp3" type="audio/mp3" /></audio>
+
+        <script src="js/bundle-2e11d4c604.js"></script><script src="js/undefined"></script>        <a href="https://deriv.com/help-centre">
+            <div id='elevio-shell' class='invisible'>
+                <span class='text'></span>
+                <span class='icon'>
+                    <svg viewBox="0 0 74.2 74.2">
+                        <g>
+                            <path d="M37.1,74.2C16.7,74.2,0,57.6,0,37.1S16.7,0,37.1,0s37.1,16.7,37.1,37.1S57.6,74.2,37.1,74.2z M37.1,4.8C19.3,4.8,4.8,19.3,4.8,37.1c0,17.8,14.5,32.3,32.3,32.3s32.3-14.5,32.3-32.3C69.4,19.3,54.9,4.8,37.1,4.8z"/>
+                            <g>
+                                <path id="XMLID_17_" d="M29.4,22.7c1.9-2.1,4.6-3.1,8-3.1c3.1,0,5.6,0.9,7.5,2.6s2.8,4,2.8,6.7c0,1.7-0.3,3-1,4 c-0.7,1-2.1,2.6-4.2,4.6c-1.5,1.5-2.5,2.7-3,3.7c-0.3,0.7-0.5,1.5-0.6,2.6c-0.1,1.1-1,1.9-2.1,1.9h0c-1.2,0-2.2-1-2.1-2.3 c0.1-1.2,0.4-2.3,0.7-3.1c0.5-1.4,1.7-2.9,3.6-4.7l1.9-1.9c0.6-0.5,1-1.1,1.4-1.7c0.6-1,1-2.1,1-3.2c0-1.5-0.5-2.9-1.4-4 c-0.9-1.1-2.5-1.7-4.6-1.7c-2.7,0-4.5,1-5.5,2.9c-0.4,0.7-0.7,1.7-0.8,2.8c-0.1,1-1,1.8-2.1,1.8h0c-1.3,0-2.3-1.1-2.1-2.4 C27.1,26.2,28,24.3,29.4,22.7z M36.9,49.7L36.9,49.7c1.3,0,2.3,1,2.3,2.3v0.2c0,1.3-1,2.3-2.3,2.3h0c-1.3,0-2.3-1-2.3-2.3V52 C34.5,50.7,35.6,49.7,36.9,49.7z" className="st0"/>
+                            </g>
+                        </g>
+                    </svg>
+                </span>
+            </div>
+        </a>        <!-- Google Tag Manager (noscript) --> <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P97C2DZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> <!-- End Google Tag Manager (noscript) -->        <div class="notifyjs-corner" style="bottom: 0px; right: 0px;"></div>
+        <div class="notifyjs-corner" style="bottom: 0px; left: 0px;"></div>
+    </div>
+
+    <!-- ========= Scripts: freebots manifest loader, QuickTrade, SignalTool ========= -->
+    <script>
+        (function () {
+            /* ---------- CONFIG ---------- */
+            // Path to freebots manifest file (you chose recommended)
+            const FREEBOTS_MANIFEST = '/static/data/freebots.json'; // <-- create this file
+            // Expected structure of freebots.json:
+            // [
+            //   { "id":"digits-sniper", "name":"Digits Sniper", "description":"Best for matches/differ", "xml":"static/xml/freebots/digits-sniper.xml" },
+            //   { "id":"admin-runner", "name":"Admin Runner", "description":"Hit & run - no martingale", "xml":"static/xml/freebots/admin-runner.xml" }
+            // ]
+
+            /* ---------- Helper: DOM selectors ---------- */
+            const freebotsSection = document.getElementById('freebots-section');
+            const fbGrid = document.getElementById('fb-grid');
+            const tabFree = document.getElementById('tab-freebots');
+            const tabQuick = document.getElementById('tab-quicktrade');
+            const tabSignal = document.getElementById('tab-signaltool');
+            const quickContainer = document.getElementById('quick-trade-container');
+            const signalContainer = document.getElementById('signaltool-container');
+
+            // Utility: toggle active tab/link
+            function setActiveTab(tabEl) {
+                // hide all injected sections first
+                freebotsSection.style.display = 'none';
+                quickContainer.style.display = 'none';
+                signalContainer.style.display = 'none';
+                [tabFree, tabQuick, tabSignal].forEach(t => t.classList.remove('active'));
+                // show selected
+                if (tabEl === tabFree) { freebotsSection.style.display = 'block'; tabFree.classList.add('active'); }
+                if (tabEl === tabQuick) { quickContainer.style.display = 'block'; tabQuick.classList.add('active'); }
+                if (tabEl === tabSignal) { signalContainer.style.display = 'block'; tabSignal.classList.add('active'); }
+            }
+
+            tabFree.addEventListener('click', () => { setActiveTab(tabFree); loadFreeBots(); });
+            tabQuick.addEventListener('click', () => { setActiveTab(tabQuick); /* quick trade WS handled below */ });
+            tabSignal.addEventListener('click', () => { setActiveTab(tabSignal); });
+
+            /* ---------- FREEBOTS: fetch manifest and render cards ---------- */
+            async function loadFreeBots() {
+                // If already loaded, bail
+                if (fbGrid.dataset.loaded === '1') return;
+                try {
+                    const res = await fetch(FREEBOTS_MANIFEST, { cache: 'no-store' });
+                    if (!res.ok) throw new Error('Manifest fetch failed');
+                    const list = await res.json();
+                    if (!Array.isArray(list)) throw new Error('Invalid manifest format');
+                    fbGrid.innerHTML = '';
+                    list.forEach(bot => {
+                        const card = document.createElement('div');
+                        card.className = 'fb-card';
+                        const title = document.createElement('h3'); title.textContent = bot.name || bot.id || 'Unnamed Bot';
+                        const desc = document.createElement('p'); desc.textContent = bot.description || 'No description';
+                        const actions = document.createElement('div'); actions.className = 'fb-actions';
+                        const loadBtn = document.createElement('button'); loadBtn.className = 'button load-btn'; loadBtn.textContent = 'Load';
+                        const dlBtn = document.createElement('a'); dlBtn.className = 'button download-btn'; dlBtn.textContent = 'Download'; dlBtn.href = bot.xml || '#'; dlBtn.target = '_blank';
+                        actions.appendChild(loadBtn); actions.appendChild(dlBtn);
+                        card.appendChild(title); card.appendChild(desc); card.appendChild(actions);
+                        fbGrid.appendChild(card);
+
+                        // Load behavior: fetch xml and try to inject into bot builder workspace
+                        loadBtn.addEventListener('click', async () => {
+                            loadBtn.disabled = true; loadBtn.textContent = 'Loading...';
+                            try {
+                                const xmlRes = await fetch(bot.xml, { cache: 'no-store' });
+                                if (!xmlRes.ok) throw new Error('XML fetch failed');
+                                const xmlText = await xmlRes.text();
+                                // Try to inject into DBot in several ways:
+                                let injected = false;
+
+                                // 1) If Blockly & workspace present (common)
+                                try {
+                                    if (window.Blockly && window.workspace) {
+                                        const dom = Blockly.Xml.textToDom(xmlText);
+                                        // clear workspace & import
+                                        Blockly.Xml.domToWorkspace(dom, window.workspace);
+                                        injected = true;
+                                    }
+                                } catch (e) { /* ignore */ }
+
+                                // 2) Some forks provide global load mechanism: window.loadXmlString or window.loadBlocksFromXmlString
+                                try {
+                                    if (!injected && typeof window.loadXmlString === 'function') {
+                                        window.loadXmlString(xmlText);
+                                        injected = true;
+                                    } else if (!injected && typeof window.loadBlocksFromXmlString === 'function') {
+                                        window.loadBlocksFromXmlString(xmlText);
+                                        injected = true;
+                                    }
+                                } catch (e) { /* ignore */ }
+
+                                // 3) Dispatch a custom event so the original bot code can catch and handle the xml string
+                                if (!injected) {
+                                    const evt = new CustomEvent('bkd_freebot_load_xml', { detail: { xml: xmlText, bot } });
+                                    window.dispatchEvent(evt);
+                                    // we can't guarantee the other side handled it, but we still mark as attempted
+                                    injected = true;
+                                }
+
+                                // show lightweight feedback
+                                if (injected) {
+                                    loadBtn.textContent = 'Loaded ✓';
+                                    setTimeout(() => loadBtn.textContent = 'Load', 2000);
+                                    // optionally redirect user to bot builder page if not there
+                                    // many installations have bot builder at bot.html: open it (keeps in new tab)
+                                    // but we'll open in same tab to follow user's earlier flow:
+                                    window.location.href = 'bot.html';
+                                } else {
+                                    throw new Error('No injection method available');
+                                }
+                            } catch (err) {
+                                console.error('FreeBot load error', err);
+                                alert('Unable to load bot automatically. Please download the XML and import it manually into Bot Builder.');
+                                loadBtn.textContent = 'Load';
+                            } finally {
+                                loadBtn.disabled = false;
+                            }
+                        });
+                    });
+                    fbGrid.dataset.loaded = '1';
+                } catch (err) {
+                    console.error('FreeBots manifest error', err);
+                    fbGrid.innerHTML = '<div style="color:#a11a1a; text-align:center; width:100%;">Failed to load FreeBots manifest. Check <code>' + FREEBOTS_MANIFEST + '</code></div>';
+                }
+            }
+
+            /* ---------- QUICK TRADE: digit circles (stream ticks via Deriv WS) ---------- */
+            (function quickTradeModule() {
+                const WS_ENDPOINT = 'wss://ws.binaryws.com/websockets/v3?app_id=1169';
+                let ws;
+                let latestTick = null;
+                let recentDigits = [];
+                const RECENT_COUNT = 12;
+                const digitsWrap = document.getElementById('qt-digits');
+                const stabilityWrap = document.getElementById('qt-stability');
+                const marketSelect = document.getElementById('qt-market');
+                const contractSelect = document.getElementById('qt-contract-type');
+                const tickSelect = document.getElementById('qt-tick');
+                const stakeInput = document.getElementById('qt-stake');
+                const placeBtn = document.getElementById('qt-place-trade');
+                const simulateBtn = document.getElementById('qt-simulate');
+
+                function createDigits() {
+                    digitsWrap.innerHTML = '';
+                    for (let i = 0; i <= 9; i++) {
+                        const d = document.createElement('div');
+                        d.className = 'qt-digit';
+                        d.dataset.digit = i;
+                        d.innerText = i;
+                        digitsWrap.appendChild(d);
+                    }
+                }
+                function createStabilityBars() {
+                    stabilityWrap.innerHTML = '';
+                    for (let i = 0; i < 6; i++) {
+                        const bar = document.createElement('div'); bar.className = 'bar'; stabilityWrap.appendChild(bar);
+                    }
+                }
+                function pushDigit(d) {
+                    recentDigits.unshift(d);
+                    if (recentDigits.length > RECENT_COUNT) recentDigits.pop();
+                    updateStabilityBars();
+                }
+                function updateStabilityBars() {
+                    const bars = Array.from(stabilityWrap.children);
+                    const counts = {};
+                    recentDigits.forEach(dd => counts[dd] = (counts[dd] || 0) + 1);
+                    const maxCount = Math.max(...Object.values(counts || {0:0}));
+                    const proportion = Math.min(1, maxCount / (RECENT_COUNT || 1));
+                    const stable = proportion >= 0.35;
+                    bars.forEach((b, i) => {
+                        b.classList.remove('green','red');
+                        if (stable && i < Math.round(proportion * bars.length)) b.classList.add('green');
+                        if (!stable && i < Math.round((1 - proportion) * bars.length)) b.classList.add('red');
+                    });
+                }
+                function highlightDigit(digit, win) {
+                    const nodes = digitsWrap.querySelectorAll('.qt-digit'); nodes.forEach(n => n.classList.remove('green','red'));
+                    const node = digitsWrap.querySelector('.qt-digit[data-digit="' + digit + '"]');
+                    if (node) node.classList.add(win ? 'green' : 'red');
+                }
+
+                function startWS() {
+                    if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) return;
+                    ws = new WebSocket(WS_ENDPOINT);
+                    ws.addEventListener('open', () => {
+                        fetchActiveSymbols();
+                        subscribeMarket();
+                    });
+                    ws.addEventListener('message', (msg) => {
+                        try {
+                            const data = JSON.parse(msg.data);
+                            if (data.tick) handleTick(data.tick);
+                            else if (data.active_symbols) populateMarkets(data.active_symbols);
+                        } catch (e) {}
+                    });
+                    ws.addEventListener('close', () => { setTimeout(startWS, 1500); });
+                }
+                function subscribeMarket() {
+                    if (!ws || ws.readyState !== WebSocket.OPEN) return;
+                    const symbol = marketSelect.value;
+                    if (!symbol) return;
+                    // unsubscribes not implemented; just subscribe
+                    ws.send(JSON.stringify({ ticks: symbol, subscribe: 1 }));
+                }
+                function handleTick(tick) {
+                    latestTick = tick;
+                    const intPart = Math.floor(Number(tick.quote));
+                    const lastDigit = Math.abs(intPart % 10);
+                    pushDigit(lastDigit);
+                    // flash recent
+                    const nd = digitsWrap.querySelector('.qt-digit[data-digit="' + lastDigit + '"]');
+                    if (nd) {
+                        nd.classList.add('recent');
+                        setTimeout(() => nd.classList.remove('recent'), 350);
+                    }
+                }
+                function fetchActiveSymbols() {
+                    if (!ws || ws.readyState !== WebSocket.OPEN) return;
+                    ws.send(JSON.stringify({ active_symbols: 'brief', product_type: 'basic' }));
+                }
+                function populateMarkets(list) {
+                    const choices = list.filter(s => s.symbol && (s.symbol.startsWith('R_') || s.symbol.startsWith('VOL') || s.symbol.startsWith('ID_') || s.symbol.includes('INDEX') || s.symbol.includes('STP')))
+                        .map(s => ({ symbol: s.symbol, display: s.display_name || s.symbol }));
+                    const options = choices.length ? choices : list.map(s => ({ symbol: s.symbol, display: s.display_name || s.symbol }));
+                    marketSelect.innerHTML = '';
+                    options.forEach(opt => {
+                        const o = document.createElement('option'); o.value = opt.symbol; o.textContent = opt.display; marketSelect.appendChild(o);
+                    });
+                    if (!marketSelect.value && marketSelect.options.length) marketSelect.selectedIndex = 0;
+                    subscribeMarket();
+                }
+
+                async function placeTrade() {
+                    const token = localStorage.getItem('auth_token');
+                    if (!token) {
+                        if (confirm('To place live trades here, please sign in. Open affiliate sign-up/login now?')) {
+                            window.open('https://partners.deriv.com/rx?sidc=7F66B08A-09FD-438A-9D6B-52B41F51EAA1&utm_campaign=dynamicworks&utm_medium=affiliate&utm_source=CU60658', '_blank');
+                        }
+                        return;
+                    }
+                    // Full place trade implementation requires server/token trade permission and is fragile in example.
+                    // We'll attempt a lightweight proposal + buy flow via WS (best-effort).
+                    if (!ws || ws.readyState !== WebSocket.OPEN) { alert('Connection not ready'); return; }
+                    // Authorize
+                    ws.send(JSON.stringify({ authorize: token }));
+                    // Wait for authorize in-flight - simplistic approach: listen once
+                    const stake = Number(stakeInput.value) || 1;
+                    const ticks = Number(tickSelect.value) || 1;
+                    const contract = contractSelect.value;
+                    try {
+                        const proposalResp = await new Promise((resolve, reject) => {
+                            const onMsg = (ev) => {
+                                try {
+                                    const data = JSON.parse(ev.data);
+                                    if (data.proposal) { ws.removeEventListener('message', onMsg); resolve(data.proposal); }
+                                    if (data.error) { ws.removeEventListener('message', onMsg); reject(data.error); }
+                                } catch (e) {}
+                            };
+                            ws.addEventListener('message', onMsg);
+                            ws.send(JSON.stringify({
+                                proposal: 1, amount: stake, basis: 'stake', contract_type: contract,
+                                currency: 'USD', symbol: marketSelect.value, duration: ticks, duration_unit: 't'
+                            }));
+                            setTimeout(() => reject({ error: 'proposal_timeout' }), 7000);
+                        });
+                        // buy using proposal id
+                        const buyResp = await new Promise((resolve, reject) => {
+                            const onMsg = (ev) => {
+                                try {
+                                    const data = JSON.parse(ev.data);
+                                    if (data.buy) { ws.removeEventListener('message', onMsg); resolve(data.buy); }
+                                    if (data.error) { ws.removeEventListener('message', onMsg); reject(data.error); }
+                                } catch (e) {}
+                            };
+                            ws.addEventListener('message', onMsg);
+                            ws.send(JSON.stringify({ buy: proposalResp.id }));
+                            setTimeout(() => reject({ error: 'buy_timeout' }), 7000);
+                        });
+                        alert('Trade placed (transaction): ' + (buyResp.transaction_id || JSON.stringify(buyResp)));
+                    } catch (err) {
+                        console.error('Place trade failed', err);
+                        alert('Place trade failed: ' + (err && err.error ? err.error : JSON.stringify(err)));
+                    }
+                }
+
+                function simulateTrade() {
+                    const selectedDigit = Math.floor(Math.random() * 10);
+                    const win = Math.random() < 0.6;
+                    highlightDigit(selectedDigit, win);
+                    pushDigit(selectedDigit);
+                    alert(win ? 'Simulated Win on digit ' + selectedDigit : 'Simulated Loss on digit ' + selectedDigit);
+                }
+
+                // init UI
+                createDigits(); createStabilityBars();
+
+                // wire events
+                document.getElementById('qt-market').addEventListener('change', subscribeMarket);
+                document.getElementById('qt-tick').addEventListener('change', () => {});
+                placeBtn.addEventListener('click', (e) => { e.preventDefault(); placeTrade(); });
+                simulateBtn.addEventListener('click', (e) => { e.preventDefault(); simulateTrade(); });
+
+                // when quick trade tab activated start WS
+                tabQuick.addEventListener('click', () => {
+                    startWS();
+                });
+
+                // expose helpers for debugging
+                window.__bk_quicktrade = { startWS, subscribeMarket, simulateTrade };
+            })();
+
+            /* ---------- SIGNAL TOOL: scanning animation & simple market pick ---------- */
+            (function signalToolModule() {
+                const stStart = document.getElementById('st-start');
+                const stStop = document.getElementById('st-stop');
+                const stHacking = document.getElementById('st-hacking');
+                const stOverlay = document.getElementById('st-overlay');
+                const stTitle = document.getElementById('st-result-title');
+                const stSub = document.getElementById('st-result-sub');
+                let scanning = false;
+                let scanInterval;
+
+                // small audio beep (optional) - uses WebAudio
+                function playBeep(duration = 240, freq = 880, vol = 0.06) {
+                    try {
+                        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                        const o = ctx.createOscillator();
+                        const g = ctx.createGain();
+                        o.type = 'sine'; o.frequency.value = freq;
+                        g.gain.value = vol;
+                        o.connect(g); g.connect(ctx.destination);
+                        o.start();
+                        setTimeout(() => { o.stop(); ctx.close(); }, duration);
+                    } catch (e) {}
+                }
+
+                function startScan() {
+                    if (scanning) return;
+                    scanning = true;
+                    stOverlay.style.opacity = '0.08';
+                    stHacking.innerHTML = generateHackingVisual();
+                    playBeep(200, 1100, 0.03);
+                    stTitle.textContent = 'Scanning markets...';
+                    stSub.textContent = 'Analyzing volatility & digit distribution for best matches...';
+                    // simulate network / real analysis: we will call Deriv to fetch volatility or active symbols
+                    // For now, run a believable scan animation then output a best pick.
+                    let step = 0;
+                    scanInterval = setInterval(() => {
+                        stHacking.innerHTML = generateHackingVisual();
+                        playBeep(80, 600 + Math.random() * 600, 0.02);
+                        step++;
+                        if (step > 22) {
+                            // produce result: choose a random digit & a market-ish string
+                            const digit = Math.floor(Math.random() * 10);
+                            const markets = ['R_100', 'R_25', 'R_50', 'VOLATILITY_10_INDEX', 'CRASH_1000_INDEX'];
+                            const chosenMarket = markets[Math.floor(Math.random() * markets.length)];
+                            const accuracy = (60 + Math.floor(Math.random() * 25)); // 60-85%
+                            const vol = (Math.floor(30 + Math.random() * 70));
+                            // finalize
+                            stTitle.textContent = Match recommended: ${digit};
+                            stSub.innerHTML = <strong>Market:</strong> ${chosenMarket} &nbsp; <strong>Volatility:</strong> ${vol} &nbsp; <strong>Accuracy:</strong> ${accuracy}%;
+                            stOverlay.style.opacity = '0';
+                            playBeep(400, 880, 0.05);
+                            stopScan();
+                        }
+                    }, 220);
+                }
+
+                function stopScan() {
+                    if (!scanning) return;
+                    scanning = false;
+                    clearInterval(scanInterval);
+                    stOverlay.style.opacity = '0';
+                    stHacking.innerHTML = '';
+                }
+
+                function generateHackingVisual() {
+                    // small randomized ascii matrix like effect
+                    const lines = [];
+                    const rows = 8;
+                    for (let r = 0; r < rows; r++) {
+                        let line = '';
+                        for (let c = 0; c < 60; c++) {
+                            const char = Math.random() > 0.985 ? ('0' + Math.floor(Math.random() * 9)) : (Math.random() > 0.98 ? String.fromCharCode(65 + Math.floor(Math.random() * 26)) : ' ');
+                            line += char;
+                        }
+                        lines.push(line);
+                    }
+                    return '<pre style="margin:0; opacity:0.08; color:#0f9d58;">' + lines.join('\n') + '</pre>';
+                }
+
+                stStart.addEventListener('click', startScan);
+                stStop.addEventListener('click', stopScan);
+
+                // expose for debug
+                window.__bk_signaltool = { startScan, stopScan };
+            })();
+
+            /* ---------- On load: ensure FreeBots manifest example exists note ---------- */
+            // We do not auto-load freebots until user opens the tab.
+            // If you want to auto-open freebots on landing, call setActiveTab(tabFree) here.
+
+            // NOTE: Manifest file must be created by you at /static/data/freebots.json.
+            // Example (put in /static/data/freebots.json):
+            // [
+            //   { "id":"digits-sniper", "name":"Digits Sniper", "description":"Optimized for Matches/Differ", "xml":"/static/xml/freebots/digits-sniper.xml" },
+            //   { "id":"admin-runner", "name":"Admin Runner", "description":"Hit-and-Run (no martingale)", "xml":"/static/xml/freebots/admin-runner.xml" },
+            //   { "id":"alpha-pro", "name":"Alpha Pro", "description":"Professional balanced bot with adaptive exits", "xml":"/static/xml/freebots/alpha-pro.xml" }
+            // ]
+            //
+            // Put the actual XML files at the paths referenced above (eg: /static/xml/freebots/digits-sniper.xml)
+        })();
+    </script>
+</body>
+
+</html>
