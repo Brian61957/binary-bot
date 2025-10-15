@@ -5,11 +5,19 @@
     "bot": "lib/index.js"
   },
   "jest": {
-    "setupFilesAfterEnv": ["<rootDir>/.jest"],
-    "testPathIgnorePatterns": ["/node_modules/", "tools.js"]
+    "setupFilesAfterEnv": [
+      "<rootDir>/.jest"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "tools.js"
+    ]
   },
   "lint-staged": {
-    "*.js": ["prettier-eslint --write", "git add"]
+    "*.js": [
+      "prettier-eslint --write",
+      "git add"
+    ]
   },
   "scripts": {
     "start": "gulp watch",
@@ -21,11 +29,6 @@
     "build-min": "gulp build-min",
     "serve": "npx http-server www -p 8080",
     "deploy": "yarn build && gh-pages -d www"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "author": "Binary.com",
   "license": "MIT",
@@ -71,7 +74,6 @@
     "gulp-rename": "^1.2.2",
     "gulp-rev": "^9.0.0",
     "gulp-sass": "^5.1.0",
-    "sass": "^1.77.5",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-watch": "^5.0.1",
     "husky": "^2.3.0",
@@ -94,6 +96,7 @@
     "react-joyride": "^1.11.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.2.0",
+    "sass": "^1.77.5",
     "sha1": "^1.1.1",
     "trackjs": "^2.10.2",
     "vinyl-paths": "^2.1.0",

@@ -6,6 +6,9 @@ on:
       - master
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -17,17 +20,32 @@ jobs:
       - name: 🔧 Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'  # ✅ Compatible with minimatch & Yarn 1.22
+          node-version: '20.x' # ✅ matches minimatch requirement
           cache: 'yarn'
 
       - name: 📦 Install dependencies
         run: yarn install --frozen-lockfile
 
+<<<<<<< Updated upstream
       - name: 🧠 Run CLI checks (build + lint)
+=======
+      - name: 🏗 Build project
+>>>>>>> Stashed changes
         run: yarn build
 
-      - name: 🚀 Deploy to GitHub Pages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # ✅ Add Git identity (fixes "fatal empty ident name" issue)
+      - name: Configure Git identity
         run: |
+<<<<<<< Updated upstream
           yarn deploy
+=======
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      # ✅ Use official GitHub Pages deployment action (no need for 'yarn deploy')
+      - name: 🚀 Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./www
+>>>>>>> Stashed changes
