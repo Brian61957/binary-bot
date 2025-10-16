@@ -1,10 +1,17 @@
-
-name: 🚀 Deploy Binary Bot
+name: 🚀 Build & Deploy Binary Bot
 
 on:
   push:
     branches:
       - master
+    paths:
+      - "src/"
+      - "templates/"
+      - "www/"
+      - "gulpfile.js"
+      - "package.json"
+      - "yarn.lock"
+      - ".github/workflows/deploy.yml"
   workflow_dispatch:
 
 jobs:
@@ -18,17 +25,25 @@ jobs:
       - name: 🔧 Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'   # ✅ Supports minimatch & Yarn 1.22
+          node-version: '20.x'
           cache: 'yarn'
 
-      - name: 📦 Install dependencies
-        run: yarn install --frozen-lockfile
+      - name: ⚙ Configure Git identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: 🧠 Run build
-        run: yarn build
+      - name: 📦 Install dependencies
+        run: |
+          yarn install --frozen-lockfile
+
+      - name: 🧱 Build website
+        run: |
+          yarn build
 
       - name: 🚀 Deploy to GitHub Pages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          yarn deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./www
+          publish_branch: gh-pages
