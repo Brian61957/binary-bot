@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style id="antiClickjack">body{display:none !important;}</style>
+    <script type="text/javascript">
+        if (self === top) {
+            var antiClickjack = document.getElementById("antiClickjack");
+            antiClickjack.parentNode.removeChild(antiClickjack);
+        } else {
+            top.location = self.location;
+        }
+    </script>
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="image/binary-style/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="image/binary-style/favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="image/binary-style/favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="image/binary-style/favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="image/binary-style/favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="image/binary-style/favicons/favicon-32x32.png">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta name="referrer" content="origin">
+    <title>BKDollar — Binary Bot Endpoint</title>
+
+    <link href="css/bundle-bfd9aa3ef3.css" rel="stylesheet" />
+    <link href="css/binary.css" rel="stylesheet" />
+    <link href="css/bot-9e07f77be3.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="header">
+        <div class="left-header">
+            <div class="logo-wrapper">
+                <!-- ✅ Updated to your GitHub Pages domain -->
+                <a href="https://brian61957.github.io/binary-bot/" target="_blank" id="logo">
+                    <div class="logo-parent">
+                        <div class="logo">
+                            <img class="responsive" src="image/binary-style/logo/symbol.svg" alt="BKDollar logo" />
+                        </div>
+                        <div class="binary-logo-text">
+                            <img class="responsive" src="image/binary-style/logo/type.svg" alt="BKDollar Animation">
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="content-holder">
+        <div class="container">
+            <h1>Change API Endpoint</h1>
+            <div style="border: 1px solid #bababa; padding: 1em; border-radius: 0.5em;">
+                <form>
+                    <table id="details" style="width: 100%;">
+                        <tr>
+                            <td style="text-align: right"><b>Server</b></td>
+                            <td>
+                                <input type="text" id="server_url" value="ws.binaryws.com" maxlength="40" />
+                                <p class="hint no-margin">Default: ws.binaryws.com (Deriv WebSocket Server)</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right"><b>OAuth App ID</b></td>
+                            <td>
+                                <input type="text" id="app_id" value="96054" maxlength="8" />
+                                <p class="hint no-margin">
+                                    Register and get an App ID to connect to Deriv. Your current App ID is <strong>96054</strong>.
+                                </p>
+                                <p style="color: red; font-size: 0.8em; display:none;" id="error">Unable to connect — redirecting to secure affiliate login...</p>
+                                <p id="connected" style="display:none; color:green;"><b>✅ Connected successfully to Deriv API</b></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right">
+                                <button class="button" id="new_endpoint" type="submit">Submit</button>
+                            </td>
+                            <td>
+                                <button class="button" id="reset">Reset To Original Settings</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+        <!-- Affiliate Login Redirect -->
+        <div style="text-align:center; margin-top:20px;">
+            <a href="https://partners.deriv.com/rx?sidc=7F66B08A-09FD-438A-9D6B-52B41F51EAA1&utm_campaign=dynamicworks&utm_medium=affiliate&utm_source=CU60658"
+               target="_blank"
+               class="button"
+               style="padding:8px 16px; background:#0f9d58; color:#fff; border-radius:4px; text-decoration:none;">
+               Sign Up / Login via BKDollar
+            </a>
+        </div>
+    </div>
+
+    <style>
+        #details td { border: none; }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const serverInput = document.getElementById("server_url");
+            const appInput = document.getElementById("app_id");
+            const connectedMsg = document.getElementById("connected");
+            const errorMsg = document.getElementById("error");
+            const AFFILIATE_LINK = "https://partners.deriv.com/rx?sidc=7F66B08A-09FD-438A-9D6B-52B41F51EAA1&utm_campaign=dynamicworks&utm_medium=affiliate&utm_source=CU60658";
+
+            function testConnection() {
+                try {
+                    const ws = new WebSocket(wss://${serverInput.value}/websockets/v3?app_id=${appInput.value});
+                    ws.onopen = () => {
+                        connectedMsg.style.display = "block";
+                        errorMsg.style.display = "none";
+                        ws.close();
+                    };
+                    ws.onerror = () => {
+                        connectedMsg.style.display = "none";
+                        errorMsg.style.display = "block";
+                        setTimeout(() => {
+                            window.open(AFFILIATE_LINK, "_blank");
+                        }, 2000);
+                    };
+                } catch (e) {
+                    connectedMsg.style.display = "none";
+                    errorMsg.style.display = "block";
+                    setTimeout(() => {
+                        window.open(AFFILIATE_LINK, "_blank");
+                    }, 2000);
+                }
+            }
+
+            testConnection();
+
+            document.getElementById("reset").addEventListener("click", (e) => {
+                e.preventDefault();
+                serverInput.value = "ws.binaryws.com";
+                appInput.value = "96054";
+                connectedMsg.style.display = "none";
+                errorMsg.style.display = "none";
+            });
+
+            document.getElementById("new_endpoint").addEventListener("click", (e) => {
+                e.preventDefault();
+                testConnection();
+            });
+        });
+    </script>
+</body>
+</html>
